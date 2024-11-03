@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>validasi form</title>
+  </head>
+  <body>
+    <h2>Formulir Pendaftaran</h2>
+    <form id="myForm">
+      <label for="name">Nama:</label>
+      <input type="text" id="name" name="name" /><br /><br />
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" /><br /><br />
+      <label for="phone">Nomor Telepon:</label>
+      <input type="text" id="phone" name="phone" /><br /><br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <p class="error" id="errorMessage"></p>
+    <p class="success" id="successMessage"></p>
+
+    <script>
+      document
+        .getElementById("myForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const phone = document.getElementById("phone").value.trim();
+          const errorMessage = document.getElementById("errorMessage");
+          const successMessage = document.getElementById("successMessage");
+
+          errorMessage.textContent = "";
+          successMessage.textContent = "";
+
+          if (name === "") {
+            errorMessage.textContent = "Nama harus diisi.";
+            return;
+          }
+
+          const emailPattern =
+            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+          if (!emailPattern.test(email)) {
+            errorMessage.textContent = "Email tidak valid.";
+            return;
+          }
+
+          const phonePattern = /^[0-9]{10,}$/;
+          if (!phonePattern.test(phone)) {
+            errorMessage.textContent =
+              "Nomor telepon tidak valid. Gunakan minimal 10 angka.";
+            return;
+          }
+
+          successMessage.textContent = "Formulir berhasil disubmit!";
+        });
+    </script>
+  </body>
+</html>
